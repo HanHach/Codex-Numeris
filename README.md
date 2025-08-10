@@ -2,8 +2,6 @@
 
 ---
 
-#### Video Demo: [Video Demo](https://drive.google.com/file/d/1oVRD8OTrowoeCDPZTrWzhAk8D0q81sHh/view?usp=drive_link)
-
 #### Description
 Codex Numeris is an interactive web application that visualizes the open-source ecosystem of Harvard-affiliated projects as a dynamic, explorable galaxy. Each star in the galaxy represents a project, with its position, size, and color conveying information about its creation date, popularity, and programming language.
 
