@@ -1,0 +1,116 @@
+/* ------------ Root Variables -------------- */
+
+/* ------------ Body Styling -------------- */
+body {
+  margin: 0;
+  background-color: #0a0f1e;
+  color: #e0e0e0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden; /* Prevents scrollbars, as content is managed by canvas and overlay */
+}
+/* ------------ p5.js Canvas Styling -------------- */
+canvas {
+  position: fixed; /* Positions the canvas relative to the viewport */
+  top: 0;
+  left: 0;
+  z-index: -1; /* Places the canvas behind other content. */
+}
+
+/* ------------ UI Overlay Styling -------------- */
+.ui-overlay {
+  position: relative;
+  z-index: 10; /* Ensures the UI overlay appears above the canvas */
+  padding: 1.5rem;
+  pointer-events: none; /* Allows clicks to pass through to the canvas, except on child elements */
+}
+
+.ui-overlay > * {
+  pointer-events: auto; /* Reenables pointer events for direct children of the overlay. */
+}
+
+/* ------------ Header Styling -------------- */
+header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+header h1 {
+  color: #a41034;
+  font-size: 2rem;
+  margin: 0;
+}
+header p {
+  color: #a0a0a0;
+  margin: 0.25rem 0 0;
+}
+
+/* ------------ Controls and Filters Styling -------------- */
+.controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.filter-group label {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+}
+.controls select,
+.controls button {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6 ); /* Darker background with transparency for dropdowns and buttons */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #e0e0e0;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+.controls button {
+  background-color: #a41034;
+  cursor: pointer;
+}
+
+/* -------------- Tooltip Styling --------------- */
+.tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(10, 15, 30, 0.95); /* dark background with slight transparency */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  pointer-events: none; /* allows interaction with elements behind the tooltip */
+  z-index: 1001; /* ensures the tooltip is on top of other elements */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  max-width: 500px;
+  backdrop-filter: blur(5px); /* applies a blur effect to the background for better contrast. */
+}
+
+.tooltip h3 {
+  margin-top: 0;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tooltip p {
+  margin: 0.5rem 0;
+  overflow-wrap: break-word; /* Forces long words/URLs to wrap to the next line */
+}
+
+.tooltip .meta {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

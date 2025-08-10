@@ -1,27 +1,42 @@
-# app.py
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-import os
+from flask import Flask, render_template, jsonify
+from config import DATABASE_URL  # Import the centralized database URL
+from database import db          # Import the shared db instance
+from models import Project       # Import the Project model
 
-# Configuration de l'application
+# ------------ Application Configuration --------
 app = Flask(__name__)
-
-# Configuration de la base de données
-# Utilise la variable d'environnement si elle existe, sinon une base locale
-db_uri = os.environ.get('DATABASE_URL', 'sqlite:///projects.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# ------------ Database Initialization ----------
+db.init_app(app)  # Initialize the db instance with the app
 
-# Importation du modèle après l'initialisation de db pour éviter les importations circulaires
-from models import Project
+# Create tables if they don't exist
+with app.app_context():
+    db.create_all()
 
-# Route principale
+
+# ------------ Main Routes ------------------------
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
-# Point d'entrée pour l'exécution directe
+# ------------ API Routes -------------------------
+@app.route("/api/projects")
+def get_projects():
+    """Returns all projects as JSON."""
+    try:
+        projects = Project.query.order_by(Project.stars.desc()).all()
+        return jsonify([project.to_dict() for project in projects])
+    except Exception as e:
+        # Log the exception for debugging
+        app.logger.error(f"Error fetching projects: {e}")
+        return jsonify({"error": "An error occurred while fetching projects"}), 500
+
+# ------------ Application Entry Point ----------
 if __name__ == "__main__":
+    # For running the app directly with pyhton app.py
+    with app.app_context():
+        print("DB used by Flask:", db.engine.url)
     app.run(debug=True)

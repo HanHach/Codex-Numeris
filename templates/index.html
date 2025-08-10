@@ -1,11 +1,48 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Codex Numeris</title>
-</head>
-<body>
-    <h1>Bienvenue sur Codex Numeris !</h1>
-    <p>Le projet a démarré avec succès.</p>
-</body>
+   
+    <!-------------- CSS and JavaScript Imports ------------>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <!-- p5.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  </head>
+  <body>
+
+    <!-------------- UI Overlay Section ------------>
+    <div class="ui-overlay">
+      <header>
+        <h1>Codex Numeris</h1>
+        <p>An interactive timeline of Harvard's Open Source ecosystem.</p>
+      </header>
+
+      <!-------------- Controls And Filters ------------>
+      <div class="controls">
+        <!-- Filters will be dynamically populated by th script -->
+        <div class="filter-group">
+          <label for="language-filter">Language</label>
+          <select id="language-filter"></select>
+        </div>
+        <div class="filter-group">
+          <label for="year-filter">Years</label>
+          <select id="year-filter"></select>
+        </div>
+        <button id="reset-filters" style="display: none">Reset View</button>
+      </div>
+    </div>
+
+    <!-------------- Controls and Filters ------------>
+    <div
+     class="tooltip" id="tooltip">
+    </div>
+
+    <!-------------- Main Visualization Script ------------>
+    <script type="module" src="{{ url_for('static', filename='js/galaxy.js') }}"></script>
+  </body>
 </html>
